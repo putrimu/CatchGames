@@ -23,8 +23,10 @@ public class MainActivity extends AppCompatActivity {
     Button b_play;
     TextView tv_time, tv_score, tv_best;
     Random r;
+    loadImages();
+
     int rockLocationRow1, rockLocationRow2, rockLocationRow3, rockLocationRow4, rockLocationRow5;
-    int frameImage, pawInFrameImage, emptyImage;
+    int frameImage, pawInFrameImage, emptyImage, tapImage;
 
     int currentScore = 0;
     int bestScore;
@@ -129,12 +131,252 @@ public class MainActivity extends AppCompatActivity {
             }
 
             };
+        iv_31.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(rockLocationRow3 == 1){
+                    continueGame();
+                } else{
+                    endGame();
+                }
+            }
+        });
 
-            loadImages();
+        iv_32.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(rockLocationRow3 == 2){
+                    continueGame();
+                } else{
+                    endGame();
+                }
+            }
+        });
+
+        iv_33.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(rockLocationRow3 == 3){
+                    continueGame();
+                } else{
+                    endGame();
+                }
+            }
+        });
+
+        b_play.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v ){
+                initGame();
+            }
+        });
+
 
         }
 
+        private void continueGame(){
+            //row5
+            rockLocationRow5 = rockLocationRow4;
+            setRockLocation(rockLocationRow5, 5);
 
+            //row4
+            rockLocationRow4 = rockLocationRow3;
+            setRockLocation(rockLocationRow4, 4);
+
+            //row3
+            rockLocationRow3 = rockLocationRow2;
+            setRockLocation(rockLocationRow3, 3);
+
+            //row2
+            rockLocationRow2 = rockLocationRow1;
+            setRockLocation(rockLocationRow2, 2);
+
+            //row1
+            rockLocationRow1 = r.nextInt(3) + 1;
+            setRockLocation(rockLocationRow1, 1);
+
+            currentScore++;
+            tv_score.setText("SCORE : " + currentScore);
+        }
+
+        private void initGame(){
+            iv_31.setEnabled(true);
+            iv_32.setEnabled(true);
+            iv_33.setEnabled(true);
+            b_play.setVisibility(View.INVISIBLE);
+
+            currentScore = 0;
+            tv_score.setText("SCORE : " + currentScore);
+
+            timer.start();
+            //row5 - nothing
+            //row4
+            rockLocationRow4 = 2;
+            iv_42.setImageResource(pawInFrameImage);
+            //row3
+            rockLocationRow3 = 2;
+            iv_32.setImageResource(tapImage);
+            //row2
+            rockLocationRow2 = r.nextInt(3) + 1;
+            setRockLocation(rockLocationRow2, 2);
+            //row1
+            rockLocationRow1 = r.nextInt(3) + 1;
+            setRockLocation(rockLocationRow1, 1);
+        }
+
+
+    private void endGame(){
+            timer.cancel();
+
+
+        iv_31.setEnabled(false);
+        iv_32.setEnabled(false);
+        iv_33.setEnabled(false);
+        b_play.setVisibility(View.VISIBLE );
+
+        iv_11.setImageResource(emptyImage);
+        iv_12.setImageResource(emptyImage);
+        iv_13.setImageResource(emptyImage);
+
+
+        iv_21.setImageResource(emptyImage);
+        iv_22.setImageResource(emptyImage);
+        iv_23.setImageResource(emptyImage);
+
+
+        iv_31.setImageResource(emptyImage);
+        iv_32.setImageResource(emptyImage);
+        iv_33.setImageResource(emptyImage);
+
+
+        iv_41.setImageResource(emptyImage);
+        iv_42.setImageResource(emptyImage);
+        iv_43.setImageResource(emptyImage);
+
+
+        iv_51.setImageResource(emptyImage);
+        iv_52.setImageResource(emptyImage);
+        iv_53.setImageResource(emptyImage);
+
+        Toast.makeText(MainActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+
+    }
+
+    private void setRockLocation(int place, int row){
+
+        if(row ==1){
+            iv_11.setImageResource(emptyImage);
+            iv_12.setImageResource(emptyImage);
+            iv_13.setImageResource(emptyImage);
+
+            switch (place){
+                case 1:
+                    iv_11.setImageResource(frameImage);
+                    break;
+
+                case 2:
+                    iv_12.setImageResource(frameImage);
+                    break;
+
+                case 3:
+                    iv_13.setImageResource(frameImage);
+                    break;
+
+
+            }
+        }
+
+        if(row ==2){
+            iv_21.setImageResource(emptyImage);
+            iv_22.setImageResource(emptyImage);
+            iv_23.setImageResource(emptyImage);
+
+            switch (place){
+                case 1:
+                    iv_21.setImageResource(frameImage);
+                    break;
+
+                case 2:
+                    iv_22.setImageResource(frameImage);
+                    break;
+
+                case 3:
+                    iv_23.setImageResource(frameImage);
+                    break;
+
+
+            }
+        }
+
+        if(row ==3){
+            iv_31.setImageResource(emptyImage);
+            iv_32.setImageResource(emptyImage);
+            iv_33.setImageResource(emptyImage);
+
+            switch (place){
+                case 1:
+                    iv_31.setImageResource(tapImage);
+                    break;
+
+                case 2:
+                    iv_32.setImageResource(tapImage);
+                    break;
+
+                case 3:
+                    iv_33.setImageResource(tapImage);
+                    break;
+
+
+            }
+        }
+
+        if(row ==4){
+            iv_41.setImageResource(emptyImage);
+            iv_42.setImageResource(emptyImage);
+            iv_43.setImageResource(emptyImage);
+
+            switch (place){
+                case 1:
+                    iv_41.setImageResource(pawInFrameImage);
+                    break;
+
+                case 2:
+                    iv_42.setImageResource(pawInFrameImage);
+                    break;
+
+                case 3:
+                    iv_43.setImageResource(pawInFrameImage);
+                    break;
+
+
+            }
+        }
+
+        if(row ==5){
+            iv_51.setImageResource(emptyImage);
+            iv_52.setImageResource(emptyImage);
+            iv_53.setImageResource(emptyImage);
+
+            switch (place){
+                case 1:
+                    iv_51.setImageResource(frameImage);
+                    break;
+
+                case 2:
+                    iv_52.setImageResource(frameImage);
+                    break;
+
+                case 3:
+                    iv_53.setImageResource(frameImage);
+                    break;
+
+
+            }
+        }
+
+
+
+    }
 
     private int milliaToTime(long millis){
         return (int) millis / 1000;
@@ -142,10 +384,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadImages(){
         frameImage = R.drawable.frame_a;
-        frameImage = R.drawable.frame_b;
-        frameImage = R.drawable.frame_c;
-        frameImage = R.drawable.frame_d;
-        frameImage = R.drawable.frame_icon2;
+        pawInFrameImage = R.drawable.frame_b;
+        emptyImage = R.drawable.frame_d;
+        tapImage = R.drawable.frame_icon2;
 
     }
 }
