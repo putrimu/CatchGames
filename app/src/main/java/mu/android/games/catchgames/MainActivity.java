@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
     Button b_play;
     TextView tv_time, tv_score, tv_best;
     Random r;
-    loadImages();
+
+
 
     int rockLocationRow1, rockLocationRow2, rockLocationRow3, rockLocationRow4, rockLocationRow5;
     int frameImage, pawInFrameImage, emptyImage, tapImage;
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         tv_time.setText("TIME : " + milliaToTime(15000) );
 
         r = new Random();
+        loadImages();
 
         timer = new CountDownTimer(15000, 500) {
             @Override
